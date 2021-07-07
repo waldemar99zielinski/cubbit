@@ -22,6 +22,7 @@ export const DropZone: React.FC = () => {
         <input {...getInputProps()} />
         {/* <Input />
         <p className="dropzone-label">{`or drop files here`}</p> */}
+        <InputWithFile />
       </div>
     </section>
   );
