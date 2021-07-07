@@ -15,11 +15,6 @@ export const Input: React.FC = () => {
   const inputHanlder = (e: any) => {
     setInput(e.target.value);
   };
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(input);
-
-    console.log("copied! ", input);
-  };
 
   return (
     <div className="input-with-button-container">
@@ -30,11 +25,6 @@ export const Input: React.FC = () => {
         onChange={(e) => inputHanlder(e)}
         className="input text"
       ></input>
-      <Button
-        style="button-copy"
-        title="Copy"
-        onClick={() => copyToClipboard()}
-      />
     </div>
   );
 };
