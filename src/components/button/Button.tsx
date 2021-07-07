@@ -3,18 +3,14 @@ import React from "react";
 import "./Button.css";
 
 interface Props {
-  style: string;
+  style?: string;
   title: string;
   onClick: () => void;
 }
 
-export const Button: React.FC<Props> = ({
-  style = "button-standard",
-  title,
-  onClick,
-}) => {
+export const Button: React.FC<Props> = ({ style, title, onClick }) => {
   return (
-    <button className={style + " text"} onClick={onClick}>
+    <button className={style + " button-standard text"} onClick={onClick}>
       {title}
     </button>
   );
