@@ -1,0 +1,14 @@
+.button-standard {
+  width: 100%;
+  max-width: 168px;
+  height: 48px;
+  background: #009eff;
+  border-radius: 3px;
+  justify-content: center;
+  border: none;
+}
+
+.button-standard:hover {
+  /* background: #008ee6; */
+  background: #006fb3;
+}
