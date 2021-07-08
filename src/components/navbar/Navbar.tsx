@@ -26,7 +26,7 @@ export const Navbar: React.FC = () => {
   return (
     <Nav>
       <Logo src={logo} />
-      <Switch />
+      {/* <Switch /> */}
     </Nav>
   );
 };

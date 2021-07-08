@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useDropzone } from "react-dropzone";
 
@@ -8,7 +8,10 @@ import { InputWithFile } from "./InputWithFile";
 import "./DropZone.css";
 
 export const DropZone: React.FC = () => {
-  const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
+  const { acceptedFiles, getRootProps, open, getInputProps } = useDropzone({
+    noClick: true,
+  });
+  const [isFileLoaded, setIsFileLoaded] = useState<boolean>(false);
 
   const files = acceptedFiles.map((file: any) => (
     <li key={file.path}>
@@ -20,9 +23,12 @@ export const DropZone: React.FC = () => {
     <section className="dropzone-container">
       <div {...getRootProps({ className: "dropzone" })}>
         <input {...getInputProps()} />
-        {/* <Input />
-        <p className="dropzone-label">{`or drop files here`}</p> */}
-        <InputWithFile />
+        {/*  */}
+        {(files.length < 1 && (
+          <div onClick={open}>
+            <Input />
+          </div>
+        )) || <InputWithFile fileName={acceptedFiles[0].name} />}
       </div>
     </section>
   );

@@ -1,0 +1,42 @@
+.screen-container {
+  width: 100%;
+  max-width: 920px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.buttons-container {
+  margin: 2rem;
+  display: flex;
+  width: 50%;
+}
+.single-button {
+  margin: 1.2rem;
+  width: 50%;
+}
+
+/*text properties*/
+.h2 {
+  font-weight: 900 !important;
+
+  font-size: 36px !important;
+  line-height: 47px !important;
+}
+.body-text {
+  width: 75% !important;
+  font-size: 16px !important;
+  line-height: 26px !important;
+}
+.button-color-2 {
+  background: #0065ff !important;
+}
+@media screen and (max-width: 740px) {
+  .buttons-container {
+    width: 100%;
+  }
+  .single-button {
+    margin-left: 0.3rem;
+    margin-right: 0.3rem;
+  }
+}

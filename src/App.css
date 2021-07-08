@@ -1,16 +1,17 @@
 .App {
-  /* display: flex;
-  justify-content: center; */
   background-color: black;
-  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .body {
-  margin-top: 72px;
   width: 100%;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 .text {
   font-family: Nunito;
@@ -26,5 +27,11 @@
 
   color: #ffffff;
 }
-@media (prefers-reduced-motion: no-preference) {
+.caption-text {
+  font-size: 14px;
+  line-height: 23px;
+
+  align-self: center;
+  margin-top: auto;
+  color: #98a0a6;
 }

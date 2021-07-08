@@ -5,6 +5,7 @@
   padding: 8px;
   width: 100%;
   max-width: 920px;
+  box-sizing: border-box;
 }
 .dropzone {
   height: 200px;
@@ -31,7 +32,12 @@
   color: #161616;
   margin-top: 24px;
 }
-
+.input-label-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .input-container {
   width: 264px;
   height: 48px;

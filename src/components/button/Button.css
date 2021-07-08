@@ -5,9 +5,13 @@
   border-radius: 3px;
   justify-content: center;
   border: none;
+  white-space: nowrap;
+  text-align: center;
+  padding: 1px;
+  cursor: pointer;
 }
 
 .button-standard:hover {
-  /* background: #008ee6; */
-  background: #006fb3;
+  background-color: rgb(51, 177, 255);
+  box-shadow: rgba(51, 177, 255, 0.2) 0rem 0.5rem 1rem;
 }
