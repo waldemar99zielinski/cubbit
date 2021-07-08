@@ -7,7 +7,6 @@
 
 .body {
   width: 100%;
-  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -26,6 +25,12 @@
   text-align: center;
 
   color: #ffffff;
+}
+.h2 {
+  font-weight: 900 !important;
+
+  font-size: 36px !important;
+  line-height: 47px !important;
 }
 .caption-text {
   font-size: 14px;

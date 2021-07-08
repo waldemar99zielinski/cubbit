@@ -17,12 +17,6 @@
 }
 
 /*text properties*/
-.h2 {
-  font-weight: 900 !important;
-
-  font-size: 36px !important;
-  line-height: 47px !important;
-}
 .body-text {
   width: 75% !important;
   font-size: 16px !important;
@@ -31,6 +25,22 @@
 .button-color-2 {
   background: #0065ff !important;
 }
+/* cencription screen*/
+.encription-label-input {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+}
+.encription-width {
+  width: 45rem;
+}
+.encription-label-input > label {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
 @media screen and (max-width: 740px) {
   .buttons-container {
     width: 100%;
@@ -38,5 +48,8 @@
   .single-button {
     margin-left: 0.3rem;
     margin-right: 0.3rem;
+  }
+  .encription-width {
+    width: 100%;
   }
 }

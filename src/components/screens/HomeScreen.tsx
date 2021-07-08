@@ -10,7 +10,6 @@ export const HomeScreen: React.FC = () => {
   const onClickDecrypt = () => {};
   return (
     <div className="screen-container ">
-      <h2 className="text h2">{`\`4!!(3=s 4+3`}</h2>
       <p className="text body-text">
         {
           '^#5 -"$#=.-+(-$=%(+$=$-"18/3(.-= -#=#$"18/3(.-K=p$"41$= -8=%(+$=38/$= -#=, (-3 (-=8.41=/1(5 "8>'
