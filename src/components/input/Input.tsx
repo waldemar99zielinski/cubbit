@@ -1,30 +1,31 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 
 import "./Input.css";
 
-import { Button } from "../button/Button";
-
 interface Props {
-  button?: React.FC;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  children?: JSX.Element;
 }
 
-export const Input: React.FC = () => {
-  const [input, setInput] = useState<string>("");
-  const inputRef = useRef(null);
+export const Input: React.FC<Props> = ({ value, onChange, children }) => {
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const inputHanlder = (e: any) => {
-    setInput(e.target.value);
+  const focusInput = () => {
+    //focus only if ref is not null
+    inputRef?.current?.focus();
   };
 
   return (
-    <div className="input-with-button-container">
+    <div className="input-with-button-container" onClick={() => focusInput()}>
       <input
         type="text"
         ref={inputRef}
-        value={input}
-        onChange={(e) => inputHanlder(e)}
+        value={value}
+        onChange={(e) => onChange(e)}
         className="input text"
       ></input>
+      {children}
     </div>
   );
 };
