@@ -9,7 +9,7 @@ interface Props {}
 
 export const Navbar: React.FC = () => {
   const Nav = styled.nav`
-    position: absolute;
+    position: sticky;
     height: 72px;
     left: 0%;
     right: 0%;
