@@ -20,11 +20,11 @@ function App() {
       <div className="body">
         <h2 className="text h2">{`\`4!!(3=s 4+3`}</h2>
 
-        {/* <HomeScreen /> */}
+        <HomeScreen />
         {/* <EncriptionScreen /> */}
-        <DecriptionScreen />
+        {/* <DecriptionScreen /> */}
       </div>
-      <caption className="text caption-text">{`q'$=6'.+$=(2=-$5$1=3'$=24,=.%=3'$=/ 132=J=(3=(2=&1$ 3$1=.1=+$22$1I=#$/$-#(-&=.-='.6=6$++=3'$=(-#(5(#4 +2=6.1*=3.&$3'$1`}</caption>
+      <p className="text caption-text">{`q'$=6'.+$=(2=-$5$1=3'$=24,=.%=3'$=/ 132=J=(3=(2=&1$ 3$1=.1=+$22$1I=#$/$-#(-&=.-='.6=6$++=3'$=(-#(5(#4 +2=6.1*=3.&$3'$1`}</p>
     </div>
   );
 }

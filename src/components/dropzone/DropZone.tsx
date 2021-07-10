@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, Dispatch } from "react";
 import styled from "styled-components";
 import { useDropzone } from "react-dropzone";
 
@@ -7,28 +7,39 @@ import { Input } from "./Input";
 import { InputWithFile } from "./InputWithFile";
 import "./DropZone.css";
 
-export const DropZone: React.FC = () => {
-  const { acceptedFiles, getRootProps, open, getInputProps } = useDropzone({
-    noClick: true,
-  });
-  const [isFileLoaded, setIsFileLoaded] = useState<boolean>(false);
+interface Props {
+  file: any;
+  setFile: Dispatch<any>;
+}
 
-  const files = acceptedFiles.map((file: any) => (
-    <li key={file.path}>
-      {file.path} - {file.size} bytes
-    </li>
-  ));
+export const DropZone: React.FC<Props> = ({ file, setFile }) => {
+  const onDrop = useCallback(
+    (acceptedFiles) => {
+      console.log(acceptedFiles);
+      setFile(acceptedFiles[0]);
+    },
+    [setFile]
+  );
+
+  const { getRootProps, open, getInputProps } = useDropzone({
+    onDrop,
+    noClick: true,
+    multiple: false,
+  });
 
   return (
     <section className="dropzone-container">
       <div {...getRootProps({ className: "dropzone" })}>
         <input {...getInputProps()} />
-        {/*  */}
-        {(files.length < 1 && (
+        {(file === null && (
           <div onClick={open}>
             <Input />
           </div>
-        )) || <InputWithFile fileName={acceptedFiles[0].name} />}
+        )) || (
+          <div onClick={open}>
+            <InputWithFile fileName={file ? file.name : ""} />
+          </div>
+        )}
       </div>
     </section>
   );
