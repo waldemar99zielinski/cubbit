@@ -13,8 +13,8 @@ export const HomeScreen: React.FC = () => {
   // const [loadedFile, setLoadedFile] = useState<File>()
   const [loaded, setLoaded] = useState<ArrayBuffer | null>();
 
-  const key = crypto.randomBytes(32); //"asdasdasdasdasdasdasdasdasdasdas"
-  const iv = crypto.randomBytes(8).toString("hex"); //"asdasdasasdasdas"
+  const key = "asdasdasdasdasdasdasdasdasdasdas"; //= crypto.randomBytes(32); //
+  const iv = "asdasdasasdasdas"; //"asdasdasasdasdas"crypto.randomBytes(8).toString("hex");
 
   useEffect(() => {
     if (file) {
@@ -31,48 +31,41 @@ export const HomeScreen: React.FC = () => {
 
   const onClickEncrypt = () => {
     if (loaded) {
-      console.log("key, iv: ", key, iv);
-      const encrypted = Encrypt.encryptFile(toBuffer(loaded), key, iv);
-      console.log("encrypted: ", encrypted);
-      const decrypted = Encrypt.decryptFile(encrypted as Buffer, key, iv);
-      console.log("decrypted: ", decrypted);
+      try {
+        console.log("loaded: ", toBuffer(loaded));
+        console.log("key, iv: ", key, iv);
+        const encrypted = Encrypt.encryptFile(toBuffer(loaded), key, iv);
+        console.log("encrypted: ", encrypted);
+        // const decrypted = Encrypt.decryptFile(encrypted as Buffer, key, iv);
+        // console.log("decrypted: ", decrypted);
 
-      const blob = new Blob([decrypted as BlobPart]);
-      saveAs(blob, "decrypted");
+        const blob = new Blob([encrypted as BlobPart]);
+        saveAs(blob, "encrypted");
+      } catch (err) {
+        console.error(err);
+      }
+
       // const decrypted = Encrypt.decryptFile(encrypted, key, iv);
     } else {
       console.log("HomeScreen: encrypt: no file");
     }
   };
   function toBuffer(ab: ArrayBuffer) {
-    var buf = Buffer.alloc(ab.byteLength);
-    var view = new Uint8Array(ab);
+    let buf = Buffer.alloc(ab.byteLength);
+    let view = new Uint8Array(ab);
     for (var i = 0; i < buf.length; ++i) {
       buf[i] = view[i];
     }
     return buf;
   }
 
-  // function convertDataURIToBinary(dataURI: any) {
-  //   var BASE64_MARKER = ";base64,";
-  //   var base64Index = dataURI.indexOf(BASE64_MARKER) + BASE64_MARKER.length;
-  //   var base64 = dataURI.substring(base64Index);
-  //   var raw = window.atob(base64);
-  //   var rawLength = raw.length;
-  //   var array = new Uint8Array(new ArrayBuffer(rawLength));
-
-  //   for (let i = 0; i < rawLength; i++) {
-  //     array[i] = raw.charCodeAt(i);
-  //   }
-  //   return array;
-  // }
   const onClickDecrypt = () => {
     if (loaded) {
+      console.log("loaded: ", toBuffer(loaded));
       console.log("key, iv: ", key, iv);
-      const decrypted = Encrypt.decryptFile(Buffer.from(loaded), key, iv);
+      const decrypted = Encrypt.decryptFile(toBuffer(loaded), key, iv);
       console.log("decrypted: ", decrypted);
-
-      const blob = new Blob([decrypted as BlobPart], { type: "imgae/png" });
+      const blob = new Blob([decrypted as BlobPart]);
       saveAs(blob, "decrypted");
     } else {
       console.log("HomeScreen: encrypt: no file");
@@ -85,7 +78,7 @@ export const HomeScreen: React.FC = () => {
         {
           '^#5 -"$#=.-+(-$=%(+$=$-"18/3(.-= -#=#$"18/3(.-K=p$"41$= -8=%(+$=38/$= -#=, (-3 (-=8.41=/1(5 "8>'
         }
-        {console.log("loaded: ", loaded)}
+        {/* {console.log("loaded: ", loaded)} */}
       </p>
       <DropZone file={file} setFile={setFile} />
       <div className="buttons-container">
