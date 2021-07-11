@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./App.css";
 
@@ -7,9 +7,10 @@ import { Navbar } from "./components/navbar/Navbar";
 
 //screens
 import { HomeScreen } from "./components/screens/HomeScreen";
-import { EncriptionScreen } from "./components/screens/EncriptionScreen";
+import EncriptionScreen from "./components/screens/EncriptionScreen";
 import { DecriptionScreen } from "./components/screens/DecritpionScreen";
 function App() {
+  const [loaded, setLoaded] = useState<ArrayBuffer | null>();
   return (
     <Router>
       <div className="App">
@@ -25,7 +26,7 @@ function App() {
               <EncriptionScreen />
             </Route>
             <Route path="/">
-              <HomeScreen />
+              <HomeScreen loaded={loaded} setLoaded={setLoaded} />
             </Route>
           </Switch>
         </div>

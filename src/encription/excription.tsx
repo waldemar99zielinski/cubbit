@@ -26,3 +26,11 @@ export const decryptFile = (file: Buffer, key: any, iv: string) => {
     console.error(err);
   }
 };
+export function toBuffer(ab: ArrayBuffer) {
+  let buf = Buffer.alloc(ab.byteLength);
+  let view = new Uint8Array(ab);
+  for (let i = 0; i < buf.length; ++i) {
+    buf[i] = view[i];
+  }
+  return buf;
+}

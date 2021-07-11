@@ -3,10 +3,7 @@ import { fileState, FileTypes } from "../types/fileTypes";
 import { ActionCreator, Action, Dispatch } from "redux";
 
 export const encryptionRequest = () => ({
-  type: FileTypes.ENCRYPTION_REQUEST,
-});
-export const uploadRequest = () => ({
-  type: FileTypes.UPLOAD_REQUEST,
+  type: FileTypes.ENCRYPTION_AND_UPLOAD_REQUEST,
 });
 
 export const encryptionAndUploadDone = (file_id: string, key: string) => ({

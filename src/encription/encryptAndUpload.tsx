@@ -1,8 +1,7 @@
-import crypto, { HexBase64Latin1Encoding } from "crypto";
+import crypto from "crypto";
 import * as Encryption from "./excription";
 import axios from "axios";
 import * as URL from "../constants/url";
-import { couldStartTrivia } from "typescript";
 
 function toBuffer(ab: ArrayBuffer) {
   let buf = Buffer.alloc(ab.byteLength);
@@ -41,6 +40,7 @@ export const encryptAndUpload = async (
       url: URL.postFile(),
     });
     console.log(serverRes);
+    return [key];
   } catch (error) {
     throw new Error(error);
   }
