@@ -1,14 +1,12 @@
 import React from "react";
-import styled from "styled-components";
-
+import "./Navbar.css";
 export const Switch: React.FC = () => {
-  const SwitchContainer = styled.div`
-    position: absolute;
-    width: 240px;
-    height: 40px;
-    left: calc(50% - 240px / 2 + 440px);
-    top: 16px;
-    border: 2px solid #009eff;
-  `;
-  return <SwitchContainer>ZXD</SwitchContainer>;
+  return (
+    <div className="switch-container">
+      <div className="switch-frame">
+        <div className="switch-element text">Encrypted</div>
+        <div className="switch-element text on-check">{`b-&+(2'`}</div>
+      </div>
+    </div>
+  );
 };
