@@ -5,6 +5,7 @@ import axios from "axios";
 
 import * as Encrypt from "../../encription/excription";
 import { encryptAndUpload } from "../../encription/encryptAndUpload";
+import { useHistory } from "react-router-dom";
 import "./Screens.css";
 
 //components
@@ -15,6 +16,8 @@ export const HomeScreen: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
   // const [loadedFile, setLoadedFile] = useState<File>()
   const [loaded, setLoaded] = useState<ArrayBuffer | null>();
+
+  const history = useHistory();
 
   const key = "asdasdasdasdasdasdasdasdasdasdas"; //= crypto.randomBytes(32); //
   const iv = "asdasdasasdasdas"; //"asdasdasasdasdas"crypto.randomBytes(8).toString("hex");
@@ -35,16 +38,20 @@ export const HomeScreen: React.FC = () => {
     console.log("onClickEncrypt");
     if (loaded && file) {
       try {
+        history.push("/encryption");
         await encryptAndUpload(loaded, file.name, file.type);
       } catch (err) {
         console.error(err);
       }
-
-      // const decrypted = Encrypt.decryptFile(encrypted, key, iv);
     } else {
       console.log("HomeScreen: encrypt: no file");
     }
   };
+  const onClickDecrypt = async () => {
+    console.log("onClickDecrypt");
+    history.push("/decryption");
+  };
+
   // const onClickEncrypt = async () => {
   //   if (loaded && file) {
   //     try {
@@ -80,14 +87,6 @@ export const HomeScreen: React.FC = () => {
   //     console.log("HomeScreen: encrypt: no file");
   //   }
   // };
-  function toBuffer(ab: ArrayBuffer) {
-    let buf = Buffer.alloc(ab.byteLength);
-    let view = new Uint8Array(ab);
-    for (let i = 0; i < buf.length; ++i) {
-      buf[i] = view[i];
-    }
-    return buf;
-  }
 
   // const onClickDecrypt = () => {
   //   if (loaded) {
@@ -101,24 +100,6 @@ export const HomeScreen: React.FC = () => {
   //     console.log("HomeScreen: encrypt: no file");
   //   }
   // };
-
-  const onClickDecrypt = async () => {
-    console.log("onClickDecrypt");
-    const serverRes = await axios({
-      url: "http://localhost:8080/v1/files/8b4d0867-1c92-4d91-b86e-8949bbc4d224/download",
-      method: "get",
-      responseType: "arraybuffer",
-    });
-    console.log("data ", serverRes.data);
-    const decrypted = Encrypt.decryptFile(toBuffer(serverRes.data), key, iv);
-    console.log("decrypted ", decrypted);
-    const blob = new Blob([decrypted as BlobPart]);
-
-    // const fileName = serverRes.headers.file-name;
-    // console.log("name: ", serverRes.headers.content - type);
-    saveAs(blob);
-    console.log("download ", serverRes);
-  };
 
   return (
     <div className="screen-container ">
