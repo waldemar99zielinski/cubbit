@@ -22,7 +22,6 @@ export const encryptAndUpload = async (
     //convert iv to string hex to simplify data exchange
     const iv = crypto.randomBytes(8).toString("hex");
 
-    console.log("key: ", key, "iv: ", iv);
     //work on copied arraybuffer
 
     const encrypted = Encryption.encryptFile(toBuffer(file), key, iv);
@@ -41,7 +40,6 @@ export const encryptAndUpload = async (
       url: URL.postFile(),
     });
 
-    console.log("serverRes: ", serverRes);
     return [key.toString("base64"), serverRes.data.file.file_id];
   } catch (error) {
     throw new Error(error);
@@ -60,10 +58,9 @@ export const decryptAndDownload = async (
       method: "get",
       responseType: "arraybuffer",
     });
-    console.log("decryption data ", serverRes.data);
-    console.log("decryption iv ", iv);
+
     const decrypted = Encryption.decryptFile(toBuffer(serverRes.data), key, iv);
-    console.log("decrypted ", decrypted);
+
     const blob = new Blob([decrypted as BlobPart]);
     saveAs(blob, name);
   } catch (error) {

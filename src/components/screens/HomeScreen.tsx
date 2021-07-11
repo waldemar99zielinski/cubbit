@@ -1,7 +1,4 @@
-import React, { useState, useEffect, Dispatch } from "react";
-import * as crypto from "crypto";
-import { saveAs } from "file-saver";
-import axios from "axios";
+import React, { useEffect, Dispatch } from "react";
 
 import { useHistory } from "react-router-dom";
 import "./Screens.css";
@@ -13,11 +10,6 @@ import { Button } from "../button/Button";
 import { connect } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
-
-//utils
-import * as Encryption from "../../encription/excription";
-import { encryptAndUpload } from "../../encription/encryptAndUpload";
-import * as URL from "../../constants/url";
 
 interface Props {
   loaded: any;
@@ -51,7 +43,6 @@ export const HomeScreen: React.FC<Props> = ({
   }, [file]);
 
   const onClickDecrypt = async () => {
-    console.log("onClickDecrypt");
     history.push("/decryption");
   };
 
@@ -66,7 +57,8 @@ export const HomeScreen: React.FC<Props> = ({
       await encrypt();
       history.push("/encryption");
     } else {
-      console.log("HomeScreen: encrypt: no file");
+      alert("No file selected, please select file!");
+      console.error("HomeScreen: encrypt: no file");
     }
   };
 
@@ -76,8 +68,8 @@ export const HomeScreen: React.FC<Props> = ({
         {
           '^#5 -"$#=.-+(-$=%(+$=$-"18/3(.-= -#=#$"18/3(.-K=p$"41$= -8=%(+$=38/$= -#=, (-3 (-=8.41=/1(5 "8>'
         }
-        {/* {console.log("loaded: ", loaded)} */}
       </p>
+
       <DropZone file={file} setFile={setFile} />
       <div className="buttons-container">
         <div className="single-button">

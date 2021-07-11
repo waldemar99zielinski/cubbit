@@ -14,7 +14,6 @@ interface Props {
 export const DropZone: React.FC<Props> = ({ file, setFile }) => {
   const onDrop = useCallback(
     (acceptedFiles) => {
-      console.log(acceptedFiles);
       setFile(acceptedFiles[0]);
     },
     [setFile]

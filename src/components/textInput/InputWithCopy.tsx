@@ -20,8 +20,6 @@ export const InputWithCopy: React.FC<Props> = ({ value }) => {
   }, [value]);
   const copyToClipboard = () => {
     navigator.clipboard.writeText(input);
-
-    console.log("copied! ", input);
   };
 
   return (

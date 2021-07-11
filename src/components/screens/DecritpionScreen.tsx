@@ -9,6 +9,7 @@ import { Button } from "../button/Button";
 //utils
 import * as URL from "../../constants/url";
 import * as Encription from "../../encription/encryptAndUpload";
+import { Redirect } from "react-router-dom";
 interface fileInterace {
   fileName: string;
   fileSize: number;
@@ -20,38 +21,38 @@ export const DecriptionScreen: React.FC = () => {
   const [isValidIdEmpty, setIsValidIdEmpty] = useState<boolean>(true);
   const [fileId, setFileId] = useState<string>("");
   const [fileInfo, setFileInfo] = useState<fileInterace>();
+  const [error, setError] = useState<Error>();
 
-  // const [fileName, setFileName] = useState<string>("");
-  // const [fileSize, setFileSize] = useState<number>(0);
-  // const [fileMime, setFileMime] = useState<string>("");
-  // const [fileIniV, setFileIniV] = useState<string>("");
   const [encKey, setEncKey] = useState<string>("");
 
   const getFileInfo = async () => {
-    if (fileId.length === 36) {
-      const serverRes = await axios({
-        url: URL.getFileInfo(fileId),
-      });
-      console.log("request iv:", serverRes.data.fileInfo.iv);
-      if (serverRes.status === 200) {
-        // setFileName()
-        console.log("GIT");
-        console.log(serverRes);
-        const resFileInfo: fileInterace = {
-          fileName: serverRes.data.fileInfo.name,
-          fileSize: Number(serverRes.data.fileInfo.size || 0),
-          fileMime: serverRes.data.fileInfo.mime,
-          fileVect: serverRes.data.fileInfo.iv,
-        };
+    try {
+      if (fileId.length === 36) {
+        const serverRes = await axios({
+          url: URL.getFileInfo(fileId),
+        });
 
-        setFileInfo(resFileInfo);
+        if (serverRes.status === 200) {
+          const resFileInfo: fileInterace = {
+            fileName: serverRes.data.fileInfo.name,
+            fileSize: Number(serverRes.data.fileInfo.size || 0),
+            fileMime: serverRes.data.fileInfo.mime,
+            fileVect: serverRes.data.fileInfo.iv,
+          };
 
-        setIsValidIdEmpty(false);
+          setFileInfo(resFileInfo);
+
+          setIsValidIdEmpty(false);
+        } else {
+          alert("Something went wrong...try again");
+          console.error("couldnt get file info");
+        }
       } else {
-        console.log("couldnt get file info");
+        alert("Insert proper file id - length of 32 chars");
       }
-    } else {
-      console.log("file id is invalid");
+    } catch (error) {
+      alert("Something went wrong...try again");
+      setError(error);
     }
   };
 
@@ -64,17 +65,21 @@ export const DecriptionScreen: React.FC = () => {
           fileInfo?.fileVect,
           fileInfo?.fileName
         );
-        console.log("after :)");
+      } else {
+        alert("Insert key");
       }
-      console.log("iv: ", fileInfo?.fileVect);
     } catch (err) {
-      console.log(err);
+      alert("Something went wrong...try again");
+      console.error(err);
+      setError(error);
     }
   };
 
   return (
     <div className="screen-container decription-width ">
-      {isValidIdEmpty ? (
+      {error ? (
+        <Redirect to="/" />
+      ) : isValidIdEmpty ? (
         <>
           <div className="encription-label-input">
             <label className="text">Insert your file id:</label>
@@ -114,10 +119,6 @@ export const DecriptionScreen: React.FC = () => {
             <label className="text label-width">File mime:</label>
             <Input value={fileInfo?.fileMime || ""} onChange={() => {}} />
           </div>{" "}
-          <div className="decription-label-input">
-            <label className="text label-width">File iv:</label>
-            <Input value={fileInfo?.fileVect || ""} onChange={() => {}} />
-          </div>
           <div className="encription-label-input">
             <label className="text ">Insert file key:</label>
             <Input

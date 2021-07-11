@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import "./Screens.css";
 
 //componetns
@@ -20,6 +20,7 @@ export const EncriptionScreen: React.FC<Props> = ({ loaded, file }) => {
   const [isLoading, setIsLoading] = useState<Boolean>(true);
   const [fileId, setFileId] = useState<string>("");
   const [fileKey, setFileKey] = useState<string>("");
+  const [error, setError] = useState<Error>();
 
   // const history = useHistory();
 
@@ -33,21 +34,28 @@ export const EncriptionScreen: React.FC<Props> = ({ loaded, file }) => {
             file.name,
             file.type
           );
+
           setFileId(res[1]);
           setFileKey(res[0]);
+
           setIsLoading(false);
         } catch (error) {
-          console.log(error);
+          alert("Something went wrong...");
+
+          console.error(error);
+          setError(error);
         }
       };
-      console.log("XD");
+
       encryptionProcessAndUpload();
     }
   }, [file, loaded]);
 
   return (
     <div className="screen-container encription-width ">
-      {isLoading ? (
+      {!file || !loaded || error ? (
+        <Redirect to="/" />
+      ) : isLoading ? (
         <LoadingAnimation />
       ) : (
         <>
@@ -59,7 +67,7 @@ export const EncriptionScreen: React.FC<Props> = ({ loaded, file }) => {
 
           <div className="encription-label-input text">
             <label className="text">Key:</label>
-            {console.log(loaded)}
+
             <InputWithCopy value={fileKey} />
           </div>
         </>
