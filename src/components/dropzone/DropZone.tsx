@@ -1,5 +1,4 @@
-import React, { useState, useCallback, Dispatch } from "react";
-import styled from "styled-components";
+import React, { useCallback, Dispatch } from "react";
 import { useDropzone } from "react-dropzone";
 
 //components

@@ -11,6 +11,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 5rem;
 }
 .text {
   font-family: Nunito;
@@ -23,6 +24,7 @@
   display: flex;
   align-items: center;
   text-align: center;
+  justify-content: center;
 
   color: #ffffff;
 }

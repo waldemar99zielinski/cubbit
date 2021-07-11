@@ -55,14 +55,18 @@
 }
 .decription-label-input {
   width: 100%;
-  display: flex;
-  justify-content: center;
+  display: grid;
+  justify-items: start;
+  grid-template-columns: 20% 80%;
   align-items: center;
   margin: 1rem;
 }
 .decription-label-input > label {
   white-space: nowrap;
   margin-right: 1rem;
+}
+.label-width {
+  /* width: 15%; */
 }
 @media screen and (max-width: 740px) {
   .buttons-container {
@@ -73,6 +77,16 @@
     margin-right: 0.3rem;
   }
   .encription-width {
-    width: 100%;
+    width: 95%;
+  }
+  .decription-width {
+    width: 95%;
+  }
+
+  .decription-label-input {
+    display: flex;
+    flex-direction: column;
+  }
+  .screen-container {
   }
 }

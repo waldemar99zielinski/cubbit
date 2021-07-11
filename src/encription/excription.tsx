@@ -1,6 +1,6 @@
 import * as crypto from "crypto";
 
-export const encryptFile = (file: Buffer, key: any, iv: string) => {
+export const encryptFile = (file: Buffer, key: any, iv: any) => {
   try {
     const algo = "aes-256-ctr";
     //   key = crypto.randomBytes(32);
@@ -13,12 +13,13 @@ export const encryptFile = (file: Buffer, key: any, iv: string) => {
   }
 };
 
-export const decryptFile = (file: Buffer, key: any, iv: string) => {
+export const decryptFile = (file: Buffer, key: any, iv: any) => {
   try {
     const algo = "aes-256-ctr";
     const keyBuff = Buffer.from(key, "base64");
+    const ivBuff = Buffer.from(iv, "ascii");
 
-    const cipher = crypto.createDecipheriv(algo, keyBuff, iv);
+    const cipher = crypto.createDecipheriv(algo, keyBuff, ivBuff);
     const decrypted = Buffer.concat([cipher.update(file), cipher.final()]);
     return decrypted;
   } catch (err) {

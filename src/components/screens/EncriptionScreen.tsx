@@ -1,56 +1,69 @@
-import React from "react";
-
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import "./Screens.css";
-//redux
-import { connect } from "react-redux";
-import { ApplicationState } from "../../redux/store";
+
 //componetns
 import { LoadingAnimation } from "../loadingAnimation/LoadingAnimation";
 import { FilePreview } from "../dropzone/FilePreview";
 import { InputWithCopy } from "../textInput/InputWithCopy";
 
+//encrytion
+import * as Encryption from "../../encription/encryptAndUpload";
+
 interface Props {
-  isProcessing: boolean;
-  file_id?: string;
-  key?: string;
-  errors?: string;
+  loaded: any;
+
+  file: any;
 }
 
-const EncriptionScreen: React.FC<Props> = ({
-  isProcessing,
-  file_id,
-  key,
-  errors,
-}) => {
+export const EncriptionScreen: React.FC<Props> = ({ loaded, file }) => {
+  const [isLoading, setIsLoading] = useState<Boolean>(true);
+  const [fileId, setFileId] = useState<string>("");
+  const [fileKey, setFileKey] = useState<string>("");
+
+  // const history = useHistory();
+
+  useEffect(() => {
+    if (file && loaded) {
+      const encryptionProcessAndUpload = async () => {
+        try {
+          const loadedCopy = loaded.slice(0);
+          const res = await Encryption.encryptAndUpload(
+            loadedCopy,
+            file.name,
+            file.type
+          );
+          setFileId(res[1]);
+          setFileKey(res[0]);
+          setIsLoading(false);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      console.log("XD");
+      encryptionProcessAndUpload();
+    }
+  }, [file, loaded]);
+
   return (
     <div className="screen-container encription-width ">
-      {isProcessing === undefined ? (
+      {isLoading ? (
         <LoadingAnimation />
       ) : (
         <>
-          <FilePreview fileName={"fileName"} />
+          <FilePreview fileName={file.name || ""} />
           <div className="encription-label-input">
             <label className="text">Your file id:</label>
-            <InputWithCopy value={file_id || ""} />
+            <InputWithCopy value={fileId} />
           </div>
 
           <div className="encription-label-input text">
             <label className="text">Key:</label>
-            {console.log("encriptionScreen: ", key)}
-            <InputWithCopy value={key || ""} />
+            {console.log(loaded)}
+            <InputWithCopy value={fileKey} />
           </div>
         </>
       )}
     </div>
   );
 };
-
-const mapStateToProps = ({ file }: ApplicationState) => ({
-  isProcessing: file.isProcessing,
-  file_id: file.file_id,
-  key: file.key,
-  errors: file.errors,
-});
-const mapDispatchToProps = () => {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(EncriptionScreen);

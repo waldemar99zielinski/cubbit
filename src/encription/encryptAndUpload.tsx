@@ -2,7 +2,7 @@ import crypto from "crypto";
 import * as Encryption from "./excription";
 import axios from "axios";
 import * as URL from "../constants/url";
-
+import { saveAs } from "file-saver";
 function toBuffer(ab: ArrayBuffer) {
   let buf = Buffer.alloc(ab.byteLength);
   let view = new Uint8Array(ab);
@@ -22,7 +22,8 @@ export const encryptAndUpload = async (
     //convert iv to string hex to simplify data exchange
     const iv = crypto.randomBytes(8).toString("hex");
 
-    console.log("key: ", key.toString("base64"), key, "iv: ", iv);
+    console.log("key: ", key, "iv: ", iv);
+    //work on copied arraybuffer
 
     const encrypted = Encryption.encryptFile(toBuffer(file), key, iv);
 
@@ -39,8 +40,9 @@ export const encryptAndUpload = async (
       data: data,
       url: URL.postFile(),
     });
-    console.log(serverRes);
-    return [key];
+
+    console.log("serverRes: ", serverRes);
+    return [key.toString("base64"), serverRes.data.file.file_id];
   } catch (error) {
     throw new Error(error);
   }
@@ -58,12 +60,9 @@ export const decryptAndDownload = async (
       method: "get",
       responseType: "arraybuffer",
     });
-    console.log("data ", serverRes.data);
-    const decrypted = Encryption.decryptFile(
-      toBuffer(serverRes.data),
-      key,
-      "todo"
-    );
+    console.log("decryption data ", serverRes.data);
+    console.log("decryption iv ", iv);
+    const decrypted = Encryption.decryptFile(toBuffer(serverRes.data), key, iv);
     console.log("decrypted ", decrypted);
     const blob = new Blob([decrypted as BlobPart]);
     saveAs(blob, name);

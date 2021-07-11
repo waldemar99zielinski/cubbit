@@ -7,10 +7,11 @@ import { Navbar } from "./components/navbar/Navbar";
 
 //screens
 import { HomeScreen } from "./components/screens/HomeScreen";
-import EncriptionScreen from "./components/screens/EncriptionScreen";
+import { EncriptionScreen } from "./components/screens/EncriptionScreen";
 import { DecriptionScreen } from "./components/screens/DecritpionScreen";
 function App() {
   const [loaded, setLoaded] = useState<ArrayBuffer | null>();
+  const [file, setFile] = useState<File | null>(null);
   return (
     <Router>
       <div className="App">
@@ -23,10 +24,15 @@ function App() {
               <DecriptionScreen />
             </Route>
             <Route path="/encryption">
-              <EncriptionScreen />
+              <EncriptionScreen file={file} loaded={loaded} />
             </Route>
             <Route path="/">
-              <HomeScreen loaded={loaded} setLoaded={setLoaded} />
+              <HomeScreen
+                loaded={loaded}
+                setLoaded={setLoaded}
+                file={file}
+                setFile={setFile}
+              />
             </Route>
           </Switch>
         </div>
