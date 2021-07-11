@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import * as crypto from "crypto";
+import { saveAs } from "file-saver";
+import axios from "axios";
+
 import * as Encrypt from "../../encription/excription";
 import "./Screens.css";
-import { saveAs } from "file-saver";
 
 //components
 import { DropZone } from "../dropzone/DropZone";
@@ -29,8 +31,8 @@ export const HomeScreen: React.FC = () => {
     }
   }, [file]);
 
-  const onClickEncrypt = () => {
-    if (loaded) {
+  const onClickEncrypt = async () => {
+    if (loaded && file) {
       try {
         console.log("loaded: ", toBuffer(loaded));
         console.log("key, iv: ", key, iv);
@@ -40,7 +42,26 @@ export const HomeScreen: React.FC = () => {
         // console.log("decrypted: ", decrypted);
 
         const blob = new Blob([encrypted as BlobPart]);
-        saveAs(blob, "encrypted");
+
+        const data = new FormData();
+        data.append("file", blob, file.name);
+
+        data.append("name", file.name);
+        data.append("mime", file.type);
+        data.append("iv", iv);
+
+        // const serverRes = await fetch("http://localhost:8080/v1/files/", {
+        //   method: "POST",
+        //   headers: { "content-type": "multipart/form-data" },
+        //   body: data,
+        // });
+        const serverRes = await axios({
+          method: "post",
+          data: data,
+          url: "http://localhost:8080/v1/files/",
+        });
+        console.log(serverRes);
+        // saveAs(blob, "encrypted");
       } catch (err) {
         console.error(err);
       }
@@ -53,23 +74,41 @@ export const HomeScreen: React.FC = () => {
   function toBuffer(ab: ArrayBuffer) {
     let buf = Buffer.alloc(ab.byteLength);
     let view = new Uint8Array(ab);
-    for (var i = 0; i < buf.length; ++i) {
+    for (let i = 0; i < buf.length; ++i) {
       buf[i] = view[i];
     }
     return buf;
   }
 
-  const onClickDecrypt = () => {
-    if (loaded) {
-      console.log("loaded: ", toBuffer(loaded));
-      console.log("key, iv: ", key, iv);
-      const decrypted = Encrypt.decryptFile(toBuffer(loaded), key, iv);
-      console.log("decrypted: ", decrypted);
-      const blob = new Blob([decrypted as BlobPart]);
-      saveAs(blob, "decrypted");
-    } else {
-      console.log("HomeScreen: encrypt: no file");
-    }
+  // const onClickDecrypt = () => {
+  //   if (loaded) {
+  //     console.log("loaded: ", toBuffer(loaded));
+  //     console.log("key, iv: ", key, iv);
+  //     const decrypted = Encrypt.decryptFile(toBuffer(loaded), key, iv);
+  //     console.log("decrypted: ", decrypted);
+  //     const blob = new Blob([decrypted as BlobPart]);
+  //     saveAs(blob, "decrypted");
+  //   } else {
+  //     console.log("HomeScreen: encrypt: no file");
+  //   }
+  // };
+
+  const onClickDecrypt = async () => {
+    const serverRes = await axios({
+      url: "http://localhost:8080/v1/files/8b4d0867-1c92-4d91-b86e-8949bbc4d224/download",
+      method: "get",
+      responseType: "arraybuffer",
+    });
+    console.log("data ", serverRes.data);
+    const decrypted = Encrypt.decryptFile(toBuffer(serverRes.data), key, iv);
+    console.log("decrypted ", decrypted);
+    const blob = new Blob([decrypted as BlobPart]);
+
+    const a =
+      // const fileName = serverRes.headers.file-name;
+      // console.log("name: ", serverRes.headers.content - type);
+      saveAs(blob);
+    console.log("download ", serverRes);
   };
 
   return (
