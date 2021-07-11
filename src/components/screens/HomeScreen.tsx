@@ -6,10 +6,7 @@ import "./Screens.css";
 //components
 import { DropZone } from "../dropzone/DropZone";
 import { Button } from "../button/Button";
-//redux
-import { connect } from "react-redux";
-import { ThunkDispatch } from "redux-thunk";
-import { AnyAction } from "redux";
+import Body from "../text/Body";
 
 interface Props {
   loaded: any;
@@ -64,11 +61,12 @@ export const HomeScreen: React.FC<Props> = ({
 
   return (
     <div className="screen-container ">
-      <p className="text body-text">
+      {/* <p className="text body-text">
         {
           '^#5 -"$#=.-+(-$=%(+$=$-"18/3(.-= -#=#$"18/3(.-K=p$"41$= -8=%(+$=38/$= -#=, (-3 (-=8.41=/1(5 "8>'
         }
-      </p>
+      </p> */}
+      <Body />
 
       <DropZone file={file} setFile={setFile} />
       <div className="buttons-container">

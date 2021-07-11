@@ -1,11 +1,11 @@
 import { createStore, compose, combineReducers } from "redux";
 
-import { fileReducer } from "./reducers/fileReducer";
-import { fileState } from "./types/fileTypes";
+import { languageReducer } from "./reducers/languageReducer";
+import { languageState } from "./types/languageTypes";
 
 export interface ApplicationState {
-  file: fileState;
+  language: languageState;
 }
 export const rootReducer = combineReducers({
-  file: fileReducer,
+  language: languageReducer,
 });

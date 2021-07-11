@@ -6,12 +6,14 @@ import "./DropZone.css";
 import filesIcon from "../../assets/Files.png";
 import arrowDownIcon from "../../assets/ArrowDown.png";
 
+import Select from "../text/Select";
+
 export const Input: React.FC = () => {
   return (
     <div className="input-label-container">
       <div className="input-container">
         <img src={filesIcon} alt="filesIcon" className="input-file-icon" />
-        <p className="input-text">{`\`'..2$=%(+$>`}</p>
+        <Select />
         <div className="input-divider"></div>
         <img
           src={arrowDownIcon}
