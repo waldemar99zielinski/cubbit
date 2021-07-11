@@ -16,9 +16,9 @@ export const encryptFile = (file: Buffer, key: any, iv: string) => {
 export const decryptFile = (file: Buffer, key: any, iv: string) => {
   try {
     const algo = "aes-256-ctr";
-    // const keyBuff = Buffer.from(key, "base64");
+    const keyBuff = Buffer.from(key, "base64");
 
-    const cipher = crypto.createDecipheriv(algo, Buffer.from(key), iv);
+    const cipher = crypto.createDecipheriv(algo, keyBuff, iv);
     const decrypted = Buffer.concat([cipher.update(file), cipher.final()]);
     return decrypted;
   } catch (err) {
