@@ -1,0 +1,18 @@
+.loader {
+  background: #ffa047;
+  width: 80px;
+  height: 80px;
+  position: relative;
+  display: inline-block;
+  animation: rotation 3s ease-in-out infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0);
+  }
+  50%,
+  100% {
+    transform: rotate(360deg);
+  }
+}

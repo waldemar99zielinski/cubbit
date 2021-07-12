@@ -1,0 +1,23 @@
+.input {
+  text-align: start !important;
+  margin-left: 5.8%;
+  margin-right: 5.8%;
+  background: #292929;
+  border: none;
+  width: 100%;
+}
+.input-with-button-container {
+  height: 48px;
+  width: 100%;
+  background: #292929;
+  border: 1px solid #363636;
+  box-sizing: border-box;
+  border-radius: 3px;
+  display: flex;
+  justify-content: space-between;
+  padding: 6px;
+}
+.button-copy {
+  width: 20% !important;
+  height: auto !important;
+}
