@@ -1,46 +1,44 @@
-# Getting Started with Create React App
+# Cubbit vault
+Full stack project for encrypting, decrypting and storing files.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Setup
+### PostgreSQL
+[Download and setup](https://www.postgresql.org/download/) for local usage.
 
-## Available Scripts
+To create database run following commads:
+```
+dropdb DATABASE_NAME
+createdb DATABASE_NAME
+```
+To define relations in project */server/sql* directory run:
+```
+psql -U DATABASE_USERNAME -d DATABASE_NAME < file.ddl
+```
+### Server
+In */server* directory run:
+```
+npm install
+```
+Provide server configuration (*server/template.conf.env* -> rename to conf.env): 
+* AWS credentials and [bucket name](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html)
+* PostgreSQL [user credentials](https://www.postgresql.org/docs/8.0/sql-createuser.html)
 
-In the project directory, you can run:
+Run:
+```
+npm start
+```
 
-### `npm start`
+Server validates AWS and PostgreSQL connections, in case of failure with terminate with unpleasant error.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Frontend
+In */fronted* directory run:
+```
+npm install
+```
+In */frontend/src/constants/url.tsx* change **const apiUrl** to valid server address.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Run:
+```
+npm start
+```
+Open browser on *localhost:3000/*
