@@ -37,7 +37,7 @@ export const HomeScreen: React.FC<Props> = ({
     } else {
       setLoaded(null);
     }
-  }, [file]);
+  }, [file, setLoaded]);
 
   const onClickDecrypt = async () => {
     history.push("/decryption");

@@ -1,4 +1,4 @@
-import { createStore, compose, combineReducers } from "redux";
+import { combineReducers } from "redux";
 
 import { languageReducer } from "./reducers/languageReducer";
 import { languageState } from "./types/languageTypes";

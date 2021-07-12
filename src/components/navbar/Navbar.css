@@ -24,6 +24,7 @@ nav {
   border: 2px solid #009eff;
   margin-right: 20%;
   display: flex;
+  cursor: pointer;
 }
 .switch-frame {
   width: 100%;

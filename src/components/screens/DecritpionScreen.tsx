@@ -111,7 +111,7 @@ export const DecriptionScreen: React.FC = () => {
           <div className="decription-label-input">
             <label className="text label-width">File size:</label>
             <Input
-              value={fileInfo?.fileSize.toString() || "0"}
+              value={(fileInfo?.fileSize.toString() || "0") + " bytes"}
               onChange={() => {}}
             />
           </div>

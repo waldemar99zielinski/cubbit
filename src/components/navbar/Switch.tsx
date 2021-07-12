@@ -26,7 +26,7 @@ const Switch: React.FC<Props> = ({ currentLanguage, changeLanguage }) => {
   };
 
   return (
-    <div className="switch-container">
+    <div className="switch-container" onClick={() => change()}>
       <div className="switch-frame">
         <div
           className={
@@ -34,7 +34,6 @@ const Switch: React.FC<Props> = ({ currentLanguage, changeLanguage }) => {
               ? "switch-element text on-check"
               : "switch-element text"
           }
-          onClick={() => change()}
         >
           {currentLanguage === avaliableLanguages.DECRYPTED
             ? "Decrypted"

@@ -1,6 +1,4 @@
-import { languageState, languageTypes } from "../types/languageTypes";
-
-import { avaliableLanguages } from "../../constants/language";
+import { languageTypes } from "../types/languageTypes";
 
 export const changeLanguage = (language: string) => ({
   type: languageTypes.CHANGE_LANGUAGE,
